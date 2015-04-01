@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="carserviceModelStoreContainer" CdmEntityContainer="VehicleEntities">
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="carserviceModel.Customer">
+        <MappingFragment StoreEntitySet="Customers">
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="adress" ColumnName="adress" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="postCode" ColumnName="postCode" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneNumbers">
+      <EntityTypeMapping TypeName="carserviceModel.PhoneNumber">
+        <MappingFragment StoreEntitySet="PhoneNumbers">
+          <ScalarProperty Name="phoneType" ColumnName="phoneType" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vehicles">
+      <EntityTypeMapping TypeName="carserviceModel.Vehicle">
+        <MappingFragment StoreEntitySet="vehicles">
+          <ScalarProperty Name="registration" ColumnName="registration" />
+          <ScalarProperty Name="make" ColumnName="make" />
+          <ScalarProperty Name="model" ColumnName="model" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="year" ColumnName="year" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="vin" ColumnName="vin" />
+          <ScalarProperty Name="capacity" ColumnName="capacity" />
+          <ScalarProperty Name="fuelType" ColumnName="fuelType" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VehicleServices">
+      <EntityTypeMapping TypeName="carserviceModel.VehicleService">
+        <MappingFragment StoreEntitySet="vehicleService">
+          <ScalarProperty Name="registration" ColumnName="registration" />
+          <ScalarProperty Name="serviceDate" ColumnName="serviceDate" />
+          <ScalarProperty Name="odometer" ColumnName="odometer" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="subject" ColumnName="subject" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

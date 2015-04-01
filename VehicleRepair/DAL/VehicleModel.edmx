@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="carserviceModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="carserviceModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="carserviceModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PhoneNumbers" EntityType="carserviceModel.Store.PhoneNumbers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vehicles" EntityType="carserviceModel.Store.vehicles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="vehicleService" EntityType="carserviceModel.Store.vehicleService" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_customerVehicle" Association="carserviceModel.Store.FK_customerVehicle">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="vehicles" EntitySet="vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneNumbers_Customers" Association="carserviceModel.Store.FK_PhoneNumbers_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PhoneNumbers" EntitySet="PhoneNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_vehicles_vehicleService" Association="carserviceModel.Store.FK_vehicles_vehicleService">
+            <End Role="vehicles" EntitySet="vehicles" />
+            <End Role="vehicleService" EntitySet="vehicleService" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="lastName" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="adress" Type="nvarchar" MaxLength="30" />
+          <Property Name="city" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="state" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="postCode" Type="varchar" MaxLength="16" />
+          <Property Name="email" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="PhoneNumbers">
+          <Key>
+            <PropertyRef Name="phoneType" />
+            <PropertyRef Name="number" />
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="phoneType" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="number" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="customerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vehicles">
+          <Key>
+            <PropertyRef Name="registration" />
+          </Key>
+          <Property Name="registration" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="make" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="model" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="type" Type="nvarchar" Nullable="false" MaxLength="10" />
+          <Property Name="year" Type="smallint" Nullable="false" />
+          <Property Name="color" Type="nvarchar" MaxLength="20" />
+          <Property Name="vin" Type="nvarchar" MaxLength="20" />
+          <Property Name="capacity" Type="nvarchar" MaxLength="10" />
+          <Property Name="fuelType" Type="nvarchar" MaxLength="10" />
+          <Property Name="customerID" Type="int" />
+        </EntityType>
+        <EntityType Name="vehicleService">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="subject" Type="nvarchar" Nullable="false" MaxLength="30" />
+          <Property Name="description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="odometer" Type="int" />
+          <Property Name="serviceDate" Type="date" />
+          <Property Name="registration" Type="nvarchar" Nullable="false" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_customerVehicle">
+          <End Role="Customers" Type="carserviceModel.Store.Customers" Multiplicity="0..1" />
+          <End Role="vehicles" Type="carserviceModel.Store.vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="vehicles">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneNumbers_Customers">
+          <End Role="Customers" Type="carserviceModel.Store.Customers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhoneNumbers" Type="carserviceModel.Store.PhoneNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="PhoneNumbers">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_vehicles_vehicleService">
+          <End Role="vehicles" Type="carserviceModel.Store.vehicles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="vehicleService" Type="carserviceModel.Store.vehicleService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vehicles">
+              <PropertyRef Name="registration" />
+            </Principal>
+            <Dependent Role="vehicleService">
+              <PropertyRef Name="registration" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="carserviceModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="VehicleEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="carserviceModel.Customer" />
+          <EntitySet Name="PhoneNumbers" EntityType="carserviceModel.PhoneNumber" />
+          <EntitySet Name="Vehicles" EntityType="carserviceModel.Vehicle" />
+          <AssociationSet Name="FK_customerVehicle" Association="carserviceModel.FK_customerVehicle">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PhoneNumbers_Customers" Association="carserviceModel.FK_PhoneNumbers_Customers">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="PhoneNumbers" EntitySet="PhoneNumbers" />
+          </AssociationSet>
+          <EntitySet Name="VehicleServices" EntityType="carserviceModel.VehicleService" />
+          <AssociationSet Name="FK_vehicles_vehicleService" Association="carserviceModel.FK_vehicles_vehicleService">
+            <End Role="Vehicle" EntitySet="Vehicles" />
+            <End Role="vehicleService" EntitySet="VehicleServices" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="adress" Type="String" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="city" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="state" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+          <Property Name="postCode" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="vehicles" Relationship="carserviceModel.FK_customerVehicle" FromRole="Customers" ToRole="vehicles" />
+          <NavigationProperty Name="PhoneNumbers" Relationship="carserviceModel.FK_PhoneNumbers_Customers" FromRole="Customers" ToRole="PhoneNumbers" />
+        </EntityType>
+        <EntityType Name="PhoneNumber">
+          <Key>
+            <PropertyRef Name="phoneType" />
+            <PropertyRef Name="number" />
+            <PropertyRef Name="customerID" />
+          </Key>
+          <Property Name="phoneType" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="number" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="customerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="carserviceModel.FK_PhoneNumbers_Customers" FromRole="PhoneNumbers" ToRole="Customers" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="registration" />
+          </Key>
+          <Property Name="registration" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="make" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="model" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="year" Type="Int16" Nullable="false" />
+          <Property Name="color" Type="String" MaxLength="20" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="vin" Type="String" MaxLength="20" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="capacity" Type="String" MaxLength="10" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="fuelType" Type="String" MaxLength="10" Unicode="true" FixedLength="false" Nullable="true" />
+          <Property Name="customerID" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Customer" Relationship="carserviceModel.FK_customerVehicle" FromRole="vehicles" ToRole="Customers" />
+          <NavigationProperty Name="vehicleServices" Relationship="carserviceModel.FK_vehicles_vehicleService" FromRole="Vehicle" ToRole="vehicleService" />
+        </EntityType>
+        <Association Name="FK_customerVehicle">
+          <End Role="Customers" Type="carserviceModel.Customer" Multiplicity="0..1" />
+          <End Role="vehicles" Type="carserviceModel.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="vehicles">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PhoneNumbers_Customers">
+          <End Role="Customers" Type="carserviceModel.Customer" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PhoneNumbers" Type="carserviceModel.PhoneNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="customerID" />
+            </Principal>
+            <Dependent Role="PhoneNumbers">
+              <PropertyRef Name="customerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VehicleService">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="subject" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="description" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="odometer" />
+          <Property Type="DateTime" Name="serviceDate" />
+          <Property Type="String" Name="registration" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="vehicle" Relationship="carserviceModel.FK_vehicles_vehicleService" FromRole="vehicleService" ToRole="Vehicle" />
+        </EntityType>
+        <Association Name="FK_vehicles_vehicleService">
+          <End Type="carserviceModel.Vehicle" Role="Vehicle" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="carserviceModel.VehicleService" Role="vehicleService" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vehicle">
+              <PropertyRef Name="registration" />
+            </Principal>
+            <Dependent Role="vehicleService">
+              <PropertyRef Name="registration" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="carserviceModelStoreContainer" CdmEntityContainer="VehicleEntities">
+          <EntitySetMapping Name="Customers"><EntityTypeMapping TypeName="carserviceModel.Customer"><MappingFragment StoreEntitySet="Customers">
+            <ScalarProperty Name="customerID" ColumnName="customerID" />
+            <ScalarProperty Name="firstName" ColumnName="firstName" />
+            <ScalarProperty Name="lastName" ColumnName="lastName" />
+            <ScalarProperty Name="adress" ColumnName="adress" />
+            <ScalarProperty Name="city" ColumnName="city" />
+            <ScalarProperty Name="state" ColumnName="state" />
+            <ScalarProperty Name="postCode" ColumnName="postCode" />
+            <ScalarProperty Name="email" ColumnName="email" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PhoneNumbers"><EntityTypeMapping TypeName="carserviceModel.PhoneNumber"><MappingFragment StoreEntitySet="PhoneNumbers">
+            <ScalarProperty Name="phoneType" ColumnName="phoneType" />
+            <ScalarProperty Name="number" ColumnName="number" />
+            <ScalarProperty Name="customerID" ColumnName="customerID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Vehicles"><EntityTypeMapping TypeName="carserviceModel.Vehicle"><MappingFragment StoreEntitySet="vehicles">
+            <ScalarProperty Name="registration" ColumnName="registration" />
+            <ScalarProperty Name="make" ColumnName="make" />
+            <ScalarProperty Name="model" ColumnName="model" />
+            <ScalarProperty Name="type" ColumnName="type" />
+            <ScalarProperty Name="year" ColumnName="year" />
+            <ScalarProperty Name="color" ColumnName="color" />
+            <ScalarProperty Name="vin" ColumnName="vin" />
+            <ScalarProperty Name="capacity" ColumnName="capacity" />
+            <ScalarProperty Name="fuelType" ColumnName="fuelType" />
+            <ScalarProperty Name="customerID" ColumnName="customerID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VehicleServices">
+            <EntityTypeMapping TypeName="carserviceModel.VehicleService">
+              <MappingFragment StoreEntitySet="vehicleService">
+                <ScalarProperty Name="registration" ColumnName="registration" />
+                <ScalarProperty Name="serviceDate" ColumnName="serviceDate" />
+                <ScalarProperty Name="odometer" ColumnName="odometer" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="VehicleModel" ShowGrid="false" SnapToGrid="true">
+        <EntityTypeShape EntityType="carserviceModel.Customer" Width="1.5" PointX="0.75" PointY="2.375" Height="2.5783902994791665" IsExpanded="true" />
+        <EntityTypeShape EntityType="carserviceModel.PhoneNumber" Width="1.5" PointX="3" PointY="1.125" Height="1.5923063151041674" IsExpanded="true" />
+        <EntityTypeShape EntityType="carserviceModel.Vehicle" Width="1.5" PointX="3" PointY="3.375" Height="2.7427376302083317" IsExpanded="true" />
+        <AssociationConnector Association="carserviceModel.FK_customerVehicle" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.1641951497395837" />
+          <ConnectorPoint PointX="3" PointY="4.1641951497395837" />
+        </AssociationConnector>
+        <AssociationConnector Association="carserviceModel.FK_PhoneNumbers_Customers" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="2.5461531575520837" />
+          <ConnectorPoint PointX="3" PointY="2.5461531575520837" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="carserviceModel.VehicleService" Width="1.5" PointX="5.25" PointY="3.75" Height="2.0853483072916674" />
+        <AssociationConnector Association="carserviceModel.FK_vehicles_vehicleService" >
+          <ConnectorPoint PointX="4.5" PointY="4.7926741536458337" />
+          <ConnectorPoint PointX="5.25" PointY="4.7926741536458337" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

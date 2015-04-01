@@ -1,0 +1,9 @@
+D:\web\projekti\VehicleRepair\VehicleRepair\bin\VehicleRepair.dll
+D:\web\projekti\VehicleRepair\VehicleRepair\bin\VehicleRepair.pdb
+D:\web\projekti\VehicleRepair\VehicleRepair\obj\Debug\ResolveAssemblyReference.cache
+D:\web\projekti\VehicleRepair\VehicleRepair\obj\Debug\VehicleRepair.dll
+D:\web\projekti\VehicleRepair\VehicleRepair\obj\Debug\VehicleRepair.pdb
+D:\web\projekti\VehicleRepair\VehicleRepair\bin\EntityFramework.dll
+D:\web\projekti\VehicleRepair\VehicleRepair\bin\EntityFramework.SqlServer.dll
+D:\web\projekti\VehicleRepair\VehicleRepair\bin\EntityFramework.xml
+D:\web\projekti\VehicleRepair\VehicleRepair\bin\EntityFramework.SqlServer.xml

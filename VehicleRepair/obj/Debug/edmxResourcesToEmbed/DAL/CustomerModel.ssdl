@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CustomerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="CustomerModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="CustomerModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Person" EntityType="CustomerModel.Store.Person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PhoneNumber" EntityType="CustomerModel.Store.PhoneNumber" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="City" Type="nvarchar" MaxLength="20" />
+    <Property Name="State" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="City" Type="nvarchar" MaxLength="20" />
+    <Property Name="State" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="PhoneNumber">
+    <Key>
+      <PropertyRef Name="PhoneType" />
+      <PropertyRef Name="PhoneNumber" />
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="PhoneType" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+  </EntityType>
+</Schema>
